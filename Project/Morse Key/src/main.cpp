@@ -1,18 +1,46 @@
 #include <Arduino.h>
+#include "config.h"
+#include "MorseManager.h"
 
-// put function declarations here:
-int myFunction(int, int);
+void PrintInput();
+
+MorseManager morseManager;
+bool buttonDown;
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  Serial.begin(BAUD_RATE);
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  Serial.println("Awaiting button press.");
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  if (digitalRead(BUTTON_PIN) == LOW){
+    buttonDown = true;
+  } else {
+    buttonDown = false;
+  }
+
+  //This makes sure the corresponding method is only called when state is changed.
+  if (buttonDown and !morseManager.IsButtonPressed()){
+    morseManager.ButtonPress();
+  } else if (!buttonDown and morseManager.IsButtonPressed()){
+    morseManager.ButtonRelease();
+    PrintInput();
+    delay(50); //Stupid way to avoid button bounce. Change.
+  }
 }
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+void PrintInput(){
+  MorseCode symbol = morseManager.getLastInput();
+  switch (symbol){
+    case DOT: 
+      Serial.println("DOT");
+      break;
+    case DASH: 
+      Serial.println("DASH");
+      break;
+    case NONE: 
+      Serial.println("Uh oh!");
+      break;
+  }
 }

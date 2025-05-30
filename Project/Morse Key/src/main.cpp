@@ -1,11 +1,14 @@
 #include <Arduino.h>
+#include <config.h>
 
 // put function declarations here:
 int myFunction(int, int);
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  Serial.begin(BAUD_RATE);
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+
+  Serial.println("Awaiting button press.");
 }
 
 void loop() {

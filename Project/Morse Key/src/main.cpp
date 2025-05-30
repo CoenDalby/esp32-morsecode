@@ -2,6 +2,11 @@
 #include "config.h"
 #include "MorseManager.h"
 
+void PrintInput();
+
+MorseManager morseManager;
+bool buttonDown;
+
 void setup() {
   Serial.begin(BAUD_RATE);
   pinMode(BUTTON_PIN, INPUT_PULLUP);
@@ -10,7 +15,32 @@ void setup() {
 
 void loop() {
   if (digitalRead(BUTTON_PIN) == LOW){
-    Serial.println("Doink!");
-    delay(1000);
+    buttonDown = true;
+  } else {
+    buttonDown = false;
+  }
+
+  //This makes sure the corresponding method is only called when state is changed.
+  if (buttonDown and !morseManager.IsButtonPressed()){
+    morseManager.ButtonPress();
+  } else if (!buttonDown and morseManager.IsButtonPressed()){
+    morseManager.ButtonRelease();
+    PrintInput();
+    delay(50); //Stupid way to avoid button bounce. Change.
+  }
+}
+
+void PrintInput(){
+  MorseCode symbol = morseManager.getLastInput();
+  switch (symbol){
+    case DOT: 
+      Serial.println("DOT");
+      break;
+    case DASH: 
+      Serial.println("DASH");
+      break;
+    case NONE: 
+      Serial.println("Uh oh!");
+      break;
   }
 }

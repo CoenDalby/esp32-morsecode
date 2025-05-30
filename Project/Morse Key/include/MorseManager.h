@@ -19,7 +19,7 @@ public:
      * @brief Gets the status of the button.
      * @return Bool, true if button is pressed.
      */
-    bool ButtonPressed();
+    bool IsButtonPressed();
 
     /**
      * @brief Sets _buttonPressed to True and records time pressed.

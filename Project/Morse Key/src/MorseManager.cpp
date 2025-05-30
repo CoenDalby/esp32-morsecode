@@ -9,7 +9,7 @@ MorseManager::MorseManager(){
     _lastInput = NONE;
 }
 
-bool MorseManager::ButtonPressed(){
+bool MorseManager::IsButtonPressed(){
     return _buttonPressed;
 }
 

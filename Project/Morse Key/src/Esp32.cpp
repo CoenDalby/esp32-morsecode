@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "Esp32.h"
 
-Esp32::Esp32(int buttonPin, int baudRate) :
+Esp32::Esp32(std::uint8_t buttonPin, unsigned long baudRate) :
     _buttonDown{false},
     _buttonPin{buttonPin},
     _baudRate{baudRate}

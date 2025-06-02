@@ -1,29 +1,28 @@
 #include <Arduino.h>
 #include "config.h"
 #include "MorseManager.h"
+#include "Esp32.h"
 
+void UpdateButtonState();
 void PrintInput();
 
 MorseManager morseManager;
-bool buttonDown;
+Esp32 esp32(BUTTON_PIN, BAUD_RATE);
 
 void setup() {
-  Serial.begin(BAUD_RATE);
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
-  Serial.println("Awaiting button press.");
+  esp32.Setup();
 }
 
 void loop() {
-  if (digitalRead(BUTTON_PIN) == LOW){
-    buttonDown = true;
-  } else {
-    buttonDown = false;
-  }
+  esp32.Loop();
+  UpdateButtonState();
+}
 
+void UpdateButtonState(){
   //This makes sure the corresponding method is only called when state is changed.
-  if (buttonDown and !morseManager.IsButtonPressed()){
+  if (esp32.GetButtonState() and !morseManager.IsButtonPressed()){
     morseManager.ButtonPress();
-  } else if (!buttonDown and morseManager.IsButtonPressed()){
+  } else if (!esp32.GetButtonState() and morseManager.IsButtonPressed()){
     morseManager.ButtonRelease();
     PrintInput();
     delay(50); //Stupid way to avoid button bounce. Change.

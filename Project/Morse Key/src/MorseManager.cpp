@@ -2,12 +2,12 @@
 #include "config.h"
 #include <Arduino.h>
 
-MorseManager::MorseManager(){
-    _buttonPressed = false;
-    _buttonDownTime = 0;
-    _buttonUpTime = 0;
-    _lastInput = MorseCode::NONE;
-}
+MorseManager::MorseManager() : 
+    _buttonPressed{false},
+    _buttonDownTime{0},
+    _buttonUpTime{0},
+    _lastInput{MorseCode::NONE}
+{}
 
 bool MorseManager::IsButtonPressed(){
     return _buttonPressed;

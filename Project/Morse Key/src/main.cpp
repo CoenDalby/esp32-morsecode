@@ -33,13 +33,13 @@ void loop() {
 void PrintInput(){
   MorseCode symbol = morseManager.getLastInput();
   switch (symbol){
-    case DOT: 
+    case MorseCode::DOT: 
       Serial.println("DOT");
       break;
-    case DASH: 
+    case MorseCode::DASH: 
       Serial.println("DASH");
       break;
-    case NONE: 
+    case MorseCode::NONE: 
       Serial.println("Uh oh!");
       break;
   }

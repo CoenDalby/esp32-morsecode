@@ -6,7 +6,7 @@ MorseManager::MorseManager(){
     _buttonPressed = false;
     _buttonDownTime = 0;
     _buttonUpTime = 0;
-    _lastInput = NONE;
+    _lastInput = MorseCode::NONE;
 }
 
 bool MorseManager::IsButtonPressed(){
@@ -32,9 +32,9 @@ void MorseManager::ButtonRelease()
     Serial.println(String("Press duration: ") + pressDuration);
     
     if (pressDuration > DOT_LIMIT){
-        _lastInput = DASH;
+        _lastInput = MorseCode::DASH;
     }else{
-        _lastInput = DOT;
+        _lastInput = MorseCode::DOT;
     }
 }
 

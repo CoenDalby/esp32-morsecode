@@ -1,7 +1,7 @@
 #ifndef MORSE_MANAGER_H
 #define MORSE_MANAGER_H
 
-enum MorseCode {
+enum class MorseCode {
     NONE,
     DOT,
     DASH

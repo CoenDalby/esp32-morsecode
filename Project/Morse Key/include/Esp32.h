@@ -7,7 +7,7 @@ public:
     /**
      * @brief Esp32 constructor method.
      */
-    Esp32(int buttonPin, int baudRate);
+    Esp32(std::uint8_t buttonPin, unsigned long baudRate);
     /**
      * @brief Called when device boots up.
      */
@@ -24,8 +24,8 @@ public:
 
 private:
     bool _buttonDown;   // Current state of physical button; true if pressed.
-    int _buttonPin;     // Pin used to take input from button.
-    int _baudRate;      // Speed data is transmitted over serial channel.
+    std::uint8_t _buttonPin;     // Pin used to take input from button.
+    unsigned long _baudRate;      // Speed data is transmitted over serial channel.
 
 };
 
